@@ -10,4 +10,4 @@ define('database', 'toko_online');
 define('url', 'http://localhost/workshop/toko_online/native/tuah/');
 
 /*----- Author -----*/
-define('author', 'Riski Sarma');
+define('author', 'Riski Sarma, andiny');
