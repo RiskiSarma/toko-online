@@ -70,7 +70,7 @@ require 'templates/header.php';
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">No</th>
                             <th scope="col" style="width: 10%">Gambar</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Harga</th>
@@ -121,7 +121,7 @@ require 'templates/header.php';
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">No</th>
                             <th scope="col">ID PESAN</th>
                             <th scope="col">PENERIMA</th>
                             <th scope="col">PENGIRIM</th>

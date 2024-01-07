@@ -12,26 +12,26 @@ function transaksi()
 function tambahTransaksi($post)
 {
     global $konek;
-    $query = mysqli_query($konek, "SELECT max(id) as idTerbesar FROM transaksi");
-    $data = mysqli_fetch_array($query);
-    $id_pesan = $data['idTerbesar'];
+    // $query = mysqli_query($konek, "SELECT max(id) as idTerbesar FROM transaksi");
+    // $data = mysqli_fetch_array($query);
+    // $id_pesan = $data['idTerbesar'];
      
-    // mengambil angka dari kode barang terbesar, menggunakan fungsi substr
-    // dan diubah ke integer dengan (int)
-    $urutan = (int) substr($id_pesan, 3, 3);
+    // // mengambil angka dari kode barang terbesar, menggunakan fungsi substr
+    // // dan diubah ke integer dengan (int)
+    // $urutan = (int) substr($id_pesan, 3, 3);
      
-    // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
-    $urutan++;
+    // // bilangan yang diambil ini ditambah 1 untuk menentukan nomor urut berikutnya
+    // $urutan++;
      
-    // membentuk kode barang baru
-    // perintah sprintf("%03s", $urutan); berguna untuk membuat string menjadi 3 karakter
-    // misalnya perintah sprintf("%03s", 15); maka akan menghasilkan '015'
-    // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya BRG 
-    $huruf = "TR";
-    $id_pesan = $huruf . sprintf("%03s", $urutan);
-    echo $id_pesan;
+    // // membentuk kode barang baru
+    // // perintah sprintf("%03s", $urutan); berguna untuk membuat string menjadi 3 karakter
+    // // misalnya perintah sprintf("%03s", 15); maka akan menghasilkan '015'
+    // // angka yang diambil tadi digabungkan dengan kode huruf yang kita inginkan, misalnya BRG 
+    // $huruf = "TR";
+    // $id_pesan = $huruf . sprintf("%03s", $urutan);
+    // echo $id_pesan;
 
-    // $id_pesan = rand();
+    $id_pesan = rand();
 
     $id_user = $_SESSION['iduser'];
     $pengirim = $post['pengirim'];
@@ -52,36 +52,36 @@ function tambahTransaksi($post)
         NULL, '$id_pesan','$id_user',  '$pengirim', '$penerima', '$alamat', '$telepon', '$email', '$kuantiti_total', '$total_akhir', '$pembayaran', '$id_status', '$pesan', '$kirim_at', '$terima_at' 
         )");
 
-    $carts = ambilCart()['carts'];
-    $i = 1;
-    $j = 1;
-    foreach ($carts as $value) {
-        $kuantiti = $post['kuantiti' . $i++];
-        $id_produk = $post['id_produk' . $j++];
-        $total = $value->total;
-        mysqli_query($konek, "INSERT INTO transaksi_detail VALUES(
-            '','$id_pesan', '$id_produk', '$kuantiti', '$total'
-        )");
-    }
+    // $carts = ambilCart()['carts'];
+    // $i = 1;
+    // $j = 1;
+    // foreach ($carts as $value) {
+    //     $kuantiti = $post['kuantiti' . $i++];
+    //     $id_produk = $post['id_produk' . $j++];
+    //     $total = $value->total;
+    //     mysqli_query($konek, "INSERT INTO transaksi_detail VALUES(
+    //         '','$id_pesan', '$id_produk', '$kuantiti', '$total'
+    //     )");
+    // }
 
-    $carts = ambilCart()['carts'];
-    $i = 1;
-    $j = 1;
-    foreach ($carts as $value) {
-        $kuantiti = $post['kuantiti' . $i++];
-        $id_produk = $post['id_produk' . $j++];
-        $jual = mysqli_query($konek, "SELECT * FROM penjualan WHERE id_produk='$id_produk'");
-        $ambilJual = $jual->fetch_object();
+    // $carts = ambilCart()['carts'];
+    // $i = 1;
+    // $j = 1;
+    // foreach ($carts as $value) {
+    //     $kuantiti = $post['kuantiti' . $i++];
+    //     $id_produk = $post['id_produk' . $j++];
+    //     $jual = mysqli_query($konek, "SELECT * FROM penjualan WHERE id_produk='$id_produk'");
+    //     $ambilJual = $jual->fetch_object();
 
-        if (mysqli_num_rows($jual) === 0) {
-            mysqli_query($konek, "INSERT INTO penjualan VALUES(
-                '','$id_produk', '$kuantiti'
-            )");
-        } else {
-            $jual = $ambilJual->jual + $kuantiti;
-            mysqli_query($konek, "UPDATE penjualan SET jual='$jual'");
-        }
-    }
+    //     if (mysqli_num_rows($jual) === 0) {
+    //         mysqli_query($konek, "INSERT INTO penjualan VALUES(
+    //             '','$id_produk', '$kuantiti'
+    //         )");
+    //     } else {
+    //         $jual = $ambilJual->jual + $kuantiti;
+    //         mysqli_query($konek, "UPDATE penjualan SET jual='$jual'");
+    //     }
+    // }
 
     $carts = ambilCart()['carts'];
     $i = 1;
@@ -162,7 +162,8 @@ function bayar($post)
     $nominal = $post['nominal'];
     $gambar = $imgname;
 
-    mysqli_query($konek, "INSERT INTO pembayaran VALUES('','$id_pesan','$nama','$nominal','$gambar')");
+    mysqli_query($konek, "INSERT INTO pembayaran (id_pesan, nama, nominal, gambar) VALUES ('$id_pesan', '$nama', '$nominal', '$gambar')");
+
 
     var_dump(mysqli_query($konek, "UPDATE transaksi SET pembayaran='1' WHERE id_pesan='$id_pesan'"));
     return header('location:' . url . 'user/profil.php');

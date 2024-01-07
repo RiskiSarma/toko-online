@@ -14,7 +14,7 @@ function produk()
         $produks[] = $produk;
     }
     $data = [
-        'judul' => 'Catri produk sesukamu di TechnoID',
+        'judul' => 'Cari produk sesukamu di Tuah Citra',
         'produk' => $produks,
     ];
     return $data;

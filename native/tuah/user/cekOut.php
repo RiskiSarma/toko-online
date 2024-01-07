@@ -22,7 +22,12 @@ require 'templates/header.php';
             <h6>Total Kuantiti</h6><span><?= $kuantiti ?></span>
         </li>
         <li class="list-group-item">
-            <h6>Total Harga</h6><span>Rp<?= number_format($subtotal, 0) ?></span>
+            <h6>Total Harga</h6>
+            <?php if ($subtotal !== null): ?>
+                <span>Rp<?= number_format($subtotal, 0) ?></span>
+            <?php else: ?>
+                <span>Subtotal tidak tersedia</span>
+            <?php endif; ?>
         </li>
     </ul>
 </div>

@@ -39,7 +39,7 @@ require 'template_admin/header.php';
                     <label for="kategori">kategori</label>
                     <select class="form-control" name="kategori" id="kategori">
                         <option>--Pilih--</option>
-                        <option value="Ponsel">Ponsel</option>
+                        <option value="Ponsel">Sembako</option>
                         <option value="Laptop">Laptop</option>
                         <option value="Komputer">Komputer</option>
                     </select>
@@ -69,8 +69,8 @@ require 'template_admin/header.php';
                 </div>
             </div>
             <div class=" text-center my-3">
-                <button type="submit" name="simpan" class="btn btn-sm btn-primary w-25" href="#" class="card-link">Simpan</button>
-                <a href="<?= url ?>admin/detailProduk.php/?id=<?= $produk['produk']->id_produk ?>" class="btn btn-sm btn-danger w-25" class="card-link">Batal</a>
+                <button type="submit" name="simpan" class="btn btn-sm btn-primary w-25 card-link" href="#">Simpan</button>
+                <!-- <a href="<?= url ?>admin/detailProduk.php/?id=<?= $produk['produk']->id_produk ?>" class="btn btn-sm btn-danger w-25 card-link">Batal</a> -->
             </div>
         </form>
     </div>

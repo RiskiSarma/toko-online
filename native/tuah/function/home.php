@@ -16,7 +16,7 @@ function home()
         $produks[] = $produk;
     }
     $data = [
-        'judul' => 'Selamat Datang di TechnoId',
+        'judul' => 'Selamat Datang di Tuah Citra',
         'produk' => $produks,
     ];
     return $data;

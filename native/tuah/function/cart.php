@@ -15,18 +15,24 @@ function tambahCart($post)
 
 
     var_dump($cek = mysqli_query($konek, "SELECT * FROM cart WHERE id_produk='$id_produk'"));
-    $cekKuantiti = mysqli_fetch_assoc($cek);
-    $kuantitiBaru = ($cekKuantiti['kuantiti'] + $kuantiti);
+    $cek = mysqli_query($konek, "SELECT * FROM cart WHERE id_produk='$id_produk'");
+    if (!$cek) {
+        die("Query error: " . mysqli_error($konek));
+    }
+    
     if (mysqli_num_rows($cek) === 0) {
-        mysqli_query($konek, "INSERT INTO cart VALUES(
-            '', '$id_user', '$id_produk', '$nama', '$harga', '$kuantiti', '$gambar', '$kategori', '$total'
+        // Kolom 'id_cart' diabaikan karena dianggap otomatis bertambah
+        mysqli_query($konek, "INSERT INTO cart (id_user, id_produk, nama, harga, kuantiti, gambar, kategori, total) VALUES (
+            '$id_user', '$id_produk', '$nama', '$harga', '$kuantiti', '$gambar', '$kategori', '$total'
             )");
     } else if (mysqli_num_rows($cek) > 0) {
+        $cekKuantiti = mysqli_fetch_assoc($cek);
+        $kuantitiBaru = ($cekKuantiti['kuantiti'] + $kuantiti);
         mysqli_query($konek, "UPDATE cart SET kuantiti='$kuantitiBaru' WHERE id_produk='$id_produk'");
     }
-    $_SESSION['sukses'] = "Barang berhasil ditambahkan keranjang";
-    return;
-}
+    
+    $_SESSION['sukses'] = "Barang berhasil ditambahkan ke keranjang";
+}    
 
 function ambilCart()
 {
